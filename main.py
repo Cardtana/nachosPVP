@@ -6,7 +6,7 @@ def tprint(text):
     print(text)
     
 class Character:
-    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, accuracy, potions):
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
         self.name = name
         self.health = health
         self.attack = attack
@@ -18,7 +18,7 @@ class Character:
         self.penRate = penRate
         self.incMight = incMight
         self.dmgReduction = dmgReduction
-        self.manaRegen = 0
+        self.manaRegen = manaRegen
         self.accuracy = accuracy
         self.potions = potions
         self.maxHealth = health
@@ -91,8 +91,8 @@ class Character:
         pass
 
 class Barbarian(Character):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
         self.ultMana == 100
 
     def strike(self, target):
@@ -142,8 +142,8 @@ class Barbarian(Character):
             tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
 
 class Paladin(Character):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
         self.ultMana == 110
 
     def strike(self, target):
@@ -208,8 +208,8 @@ class Paladin(Character):
         tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
 
 class SecretKeeper(Character):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
         self.ultMana == 120
 
     def cantrip(self, target):
@@ -249,8 +249,8 @@ class SecretKeeper(Character):
             target.takeDamage(self.intelligence * 2.5 * self.incMight * self.cDmg - target.wisdom*(0.7-self.penRate))
 
 class Alchemist(Character):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
         self.ultMana == 120
 
     def cantrip(self, target):
@@ -304,8 +304,8 @@ class Alchemist(Character):
         tprint(self.name + " used Magnum Opus, brewing 3 potions, gaining 8 Intelligence and +20% Critical Rate!")
 
 class Ranger(Character):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
         self.ultMana == 140
     def strike(self, target):
         crit = random.randint(1, 100)
@@ -345,8 +345,8 @@ class Ranger(Character):
             target.takeDamage(self.attack * 2 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
 
 class Executioner(Character):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
         self.ultMana == 130
 
     def strike(self, target):
@@ -404,8 +404,8 @@ class Executioner(Character):
                 target.takeDamage(self.attack * 2.5 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
 
 class Vampire(Character):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
         self.ultMana == 110
 
     def strike(self, target):
@@ -476,8 +476,8 @@ class Vampire(Character):
             target.takeDamage((self.intelligence * 2.2 + 40) * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
 
 class FogWalker(Character):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
         self.ultMana = 110
     def cantrip(self, target):
         crit = random.randint(1, 100)
@@ -519,8 +519,8 @@ class FogWalker(Character):
         tprint(target.name + " has " + str(target.accuracy) + "% accuracy!")
 
 class Spellblade(Character):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
         self.ultMana = 90
 
     def strike(self, target):
@@ -618,7 +618,7 @@ for i in range(2):
         class_name = input("Enter the player's class: ").strip().lower()
 
     # TODO: add way to chose stats
-    players.append(CHARACTER_CLASSES[class_name](player_name, 1000, 10, 10, 10, 10, 2, 0, 1, 0, 1, 80, 3))
+    players.append(CHARACTER_CLASSES[class_name](player_name, 1000, 10, 10, 10, 10, 2, 0, 1, 0, 0, 1, 80, 3))
 
 # randomly decide who goes first
 if random.randint(0, 2) == 0:
@@ -655,4 +655,3 @@ while playing:
             tprint(attacker.name + " has won the battle!")
             playing = False
             break
-
