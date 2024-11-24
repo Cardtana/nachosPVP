@@ -1,10 +1,13 @@
 import random
 import time
+
 global playing
 playing = True
+
 def tprint(text):
     time.sleep(0.8)
     print(text)
+    
 class Character:
     def __init__(self,name,health,attack,defence,intelligence,wisdom,cRate,cDmg,penRate,incMight,dmgReduction,manaRegen,accuracy,potions):
         self.name = name
@@ -566,16 +569,27 @@ class Spellblade(Character):
         tprint(self.name + " has " + str(self.mana) + " mana!")
     
     def ult(self,target):
-        self.mana -= 90
-        crit = random.randint(1,100)
-        if crit > self.cRate:
-            tprint(self.name + " casts Arcane Flash on " + target.name + "!")
-            target.takeDamage(self.attack * 2.6 * self.incMight - target.defence*(1-self.penRate))
-
-        else:
-            tprint("Critical hit!")
-            tprint(self.name + " casts Arcane Flash on " + target.name + "!")
-            target.takeDamage(self.attack * 2.6 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
+        time.sleep(0.8)
+        ultType = input("Which ultimate do you want to cast? Arcane Flash (1) or Esoteric Epitaph (2)")
+        if ultType == "1":
+            self.mana -= 90
+            crit = random.randint(1,100)
+            if crit > self.cRate:
+                tprint(self.name + " casts Arcane Flash on " + target.name + "!")
+                target.takeDamage(self.attack * 2.6 * self.incMight - target.defence*(1-self.penRate))
+    
+            else:
+                tprint("Critical hit!")
+                tprint(self.name + " casts Arcane Flash on " + target.name + "!")
+                target.takeDamage(self.attack * 2.6 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
+                
+        elif ultType == "2":
+            self.mana -= 90
+            self.attack += 6
+            self.intelligence += 6
+            self.manaRegen += 0.5
+            tprint(self.name + " casts Esoteric Epitaph, gaining +6 Attack and Intelligence, and +50% Mana Regeneration Rate!")
+            
 
 #You have 25 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10, Critical Damage by 0.2, Incantation Might/Penetration/Damage Taken Reduction by 0.1.
 #Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10, Critical Damage is 2, Incantation Might is 1, Penetration Rate is 0, Accuracy is 80
