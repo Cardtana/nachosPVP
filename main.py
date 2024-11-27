@@ -32,8 +32,12 @@ class Character:
 
     def takeDamage(self, damage):
         self.mana += 5 * self.manaRegen
-        self.health -= (damage*(1-self.dmgReduction))
-        tprint(self.name + " has taken " + str(round(damage*(1-self.dmgReduction), 2)) + " damage!")
+        if damage < 1:
+            self.health -= 1
+            tprint(self.name + " has taken 1 damage!")
+        else:
+            self.health -= (damage*(1-self.dmgReduction))
+            tprint(self.name + " has taken " + str(round(damage*(1-self.dmgReduction), 2)) + " damage!")
         tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
         tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
@@ -193,7 +197,12 @@ class Paladin(Character):
     def takeDamage(self, damage):
         self.health -= (damage*(1-self.dmgReduction))
         self.mana += 5 * self.manaRegen
-        tprint(self.name + " has taken " + str(round(damage*(1-self.dmgReduction), 2)) + " damage!")
+        if damage < 1:
+            self.health -= 1
+            tprint(self.name + " has taken 1 damage!")
+        else:
+            self.health -= (damage*(1-self.dmgReduction))
+            tprint(self.name + " has taken " + str(round(damage*(1-self.dmgReduction), 2)) + " damage!")
         tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
         if self.health <= 0:
             playing = False
