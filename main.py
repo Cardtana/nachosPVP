@@ -635,56 +635,56 @@ for i in range(2):
     SP -= health
 
     attack = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Attack? "))
-    while attack > 10 or attack < 0 or health > SP:
+    while attack > 10 or attack < 0 or attack > SP:
         attack = int(input("Please input a valid number "))
     SP -= attack
 
     defence = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Defence? "))
-    while defence > 10 or defence < 0 or health > SP:
+    while defence > 10 or defence < 0 or defence > SP:
         defence = int(input("Please input a valid number "))
     SP -= defence
 
     intelligence = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Intelligence? "))
-    while intelligence > 10 or intelligence < 0 or health > SP:
+    while intelligence > 10 or intelligence < 0 or intelligence > SP:
         intelligence = int(input("Please input a valid number "))
     SP -= intelligence
 
     wisdom = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Wisdom? "))
-    while wisdom > 10 or wisdom < 0 or health > SP:
+    while wisdom > 10 or wisdom < 0 or wisdom > SP:
         wisdom = int(input("Please input a valid number "))
     SP -= wisdom
 
     cRate = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Critical Rate? "))
-    while cRate > 8 or cRate < 0 or health > SP:
+    while cRate > 8 or cRate < 0 or cRate > SP:
         cRate = int(input("Please input a valid number "))
     SP -= cRate
 
     cDmg = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Critical Damage? "))
-    while cDmg > 10 or cDmg < 0 or health > SP:
+    while cDmg > 10 or cDmg < 0 or cDmg > SP:
         cDmg = int(input("Please input a valid number "))
     SP -= cDmg
 
     penRate = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Penetration Rate? "))
-    while penRate > 10 or penRate < 0 or health > SP:
+    while penRate > 10 or penRate < 0 or penRate > SP:
         penRate = int(input("Please input a valid number "))
     SP -= penRate
 
     incMight = int(input("You have " + str(SP)+ " skill points. How many skill poinsts do you want to invest in Incantation Might? "))
-    while incMight > 10 or incMight < 0 or health > SP:
+    while incMight > 10 or incMight < 0 or incMight > SP:
         incMight = int(input("Please input a valid number "))
     SP -= incMight
 
     dmgReduction = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Damage Taken Reduction? "))
-    while dmgReduction > 5 or dmgReduction < 0 or health > SP:
+    while dmgReduction > 5 or dmgReduction < 0 or dmgReduction > SP:
         dmgReduction = int(input("Please input a valid number "))
     SP -= dmgReduction
 
     manaRegen = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Mana Regeneration Rate? "))
-    while manaRegen > 10 or manaRegen < 0 or health > SP:
+    while manaRegen > 10 or manaRegen < 0 or manaRegen > SP:
         manaRegen = int(input("Please input a valid number "))
     SP -= manaRegen
         
-    players.append(CHARACTER_CLASSES[class_name](player_name, (health*100 + 1000), (attack + 10), (defence + 10), (intelligence + 10), (wisdom + 10), (cRate * 7.5 + 15), (cDmg * 0.1 + 2), (penRate * 0.1), (incMight * 0.1 + 1), (dmgReduction*0.1), (manaRegen * 0.1 + 1), 80, 3))
+    players.append(CHARACTER_CLASSES[class_name](player_name, (health*100 + 1000), (attack + 10), (defence + 10), (intelligence + 10), (wisdom + 10), (cRate * 7.5 + 15), (cDmg * 0.1 + 2), (penRate * 0.1), (incMight * 0.1 + 1), (dmgReduction*0.05), (manaRegen * 0.1 + 1), 80, 3))
 #(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
 # randomly decide who goes first
 if random.randint(0, 2) == 0:
