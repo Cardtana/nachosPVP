@@ -1,9 +1,14 @@
 import random
 import time
+from sys import stdout
 
 def tprint(text):
     time.sleep(0.8)
-    print(text)
+    for c in text:
+        print(c,end="")
+        stdout.flush()
+        time.sleep(0.05)
+    print()
     
 class Character:
     def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
@@ -30,7 +35,7 @@ class Character:
         self.health -= (damage*(1-self.dmgReduction))
         tprint(self.name + " has taken " + str(round(damage*(1-self.dmgReduction), 2)) + " damage!")
         tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def strike(self, target):
         crit = random.randint(1, 100)
@@ -50,7 +55,7 @@ class Character:
                 tprint("Critical hit!")
                 tprint(self.name + " attacks " + target.name + "!")
                 target.takeDamage(self.attack * 2 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def cantrip(self, target):
         crit = random.randint(1, 100)
@@ -70,7 +75,7 @@ class Character:
                 tprint("Critical hit!")
                 tprint(self.name + " casts a cantrip on " + target.name + "!")
                 target.takeDamage(self.intelligence * 2 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def potion(self):
         originalHealth = self.health
@@ -84,7 +89,7 @@ class Character:
         else:
             tprint(self.name + " used a potion and recovered 120 health!")
         tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
         self.potions -= 1
 
     def ult(self):
@@ -124,7 +129,7 @@ class Barbarian(Character):
                     tprint("Critical hit!")
                     tprint(self.name + " attacks " + target.name + "!")
                     target.takeDamage(self.attack * 1.8 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def ult(self, target):
         self.mana -= 100
@@ -164,7 +169,7 @@ class Paladin(Character):
                 tprint("Critical hit!")
                 tprint(self.name + " attacks " + target.name + "!")
                 target.takeDamage(self.attack * 2 * self.incMight * self.cDmg - target.defence*(1-self.penRate) + self.maxHealth * 0.02)
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
     def cantrip(self, target):
         crit = random.randint(1, 100)
         hit = random.randint(1, 100)
@@ -183,7 +188,7 @@ class Paladin(Character):
                 tprint("Critical hit!")
                 tprint(self.name + " casts a cantrip on " + target.name + "!")
                 target.takeDamage(self.intelligence * 2 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate) + self.maxHealth * 0.02)
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def takeDamage(self, damage):
         self.health -= (damage*(1-self.dmgReduction))
@@ -193,10 +198,10 @@ class Paladin(Character):
         if self.health <= 0:
             playing = False
 
-        self.health += (self.maxHealth * 0.03)
-        tprint(self.name + " recovered " + str(self.maxHealth * 0.03) + " health!")
+        self.health += (self.maxHealth * 0.005)
+        tprint(self.name + " recovered " + str(self.maxHealth * 0.005) + " health!")
         tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def ult(self, target):
         self.mana -= 110
@@ -232,7 +237,7 @@ class SecretKeeper(Character):
                 tprint("Critical hit!")
                 tprint(self.name + " casts a cantrip on " + target.name + "!")
                 target.takeDamage(self.intelligence * 2 * self.incMight * self.cDmg - target.wisdom*(0.8-self.penRate))
-            tprint(self.name + " has " + str(self.mana) + " mana!")
+            tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
             
     def ult(self, target):
         self.mana -= 120
@@ -278,7 +283,7 @@ class Alchemist(Character):
                 target.takeDamage(self.intelligence * 2 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))            
                 self.potions += 1
                 tprint(self.name + " brewed a potion!")
-            tprint(self.name + " has " + str(self.mana) + " mana!")
+            tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def potion(self):
         crit = random.randint(1, 100)
@@ -293,7 +298,7 @@ class Alchemist(Character):
             tprint(self.name + " used a potion and recovered " + str(80 * self.cDmg) +  " health!")
         tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
         self.potions -= 1
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def ult(self, target):
         self.mana -= 120
@@ -327,7 +332,7 @@ class Ranger(Character):
                 tprint("Critical hit!")
                 tprint(self.name + " attacks " + target.name + ", gaining +10% Critical Damage!")
                 target.takeDamage(self.attack * 2 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
-            tprint(self.name + " has " + str(self.mana) + " mana!")
+            tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def ult(self, target):
         self.mana -= 140
@@ -378,7 +383,7 @@ class Executioner(Character):
                     tprint("Critical hit!")
                     tprint(self.name + " attacks " + target.name + "!")
                     target.takeDamage(self.attack * 1.4 * self.incMight * self.cDmg - target.defence*(1-self.penRate) + target.health * 0.1)
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def ult(self, target):
         self.mana -= 130
@@ -432,7 +437,7 @@ class Vampire(Character):
                 self.health += (self.attack * 1.8 * self.incMight * self.cDmg - target.defence*(1-self.penRate))/4
                 tprint(self.name + " restored " + str((self.attack * 1.8 * self.incMight * self.cDmg - target.defence*(1-self.penRate))/4) + " health!")
                 tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def cantrip(self, target):
         crit = random.randint(1, 100)
@@ -456,7 +461,7 @@ class Vampire(Character):
                 tprint(self.name + " consumed health to cast a cantrip on " + target.name + "!")
                 tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
                 target.takeDamage((self.intelligence * 2 + 20) * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def ult(self, target):
         self.mana -= 110
@@ -500,7 +505,7 @@ class FogWalker(Character):
                 target.takeDamage(self.intelligence * 1.5 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
                 target.accuracy -= 3
         tprint(target.name + " has " + str(target.accuracy) + "% accuracy!")
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
         
     def ult(self, target):
         self.mana -= 110
@@ -535,13 +540,13 @@ class Spellblade(Character):
         else:
             if crit > self.cRate:
                 tprint(self.name + " attacks " + target.name + "!")
-                target.takeDamage(self.attack * 1.7 * self.incMight - target.defence*(1-self.penRate))
+                target.takeDamage(self.attack * 2 * self.incMight - target.defence*(1-self.penRate))
 
             else:
                 tprint("Critical hit!")
                 tprint(self.name + " attacks " + target.name + "!")
-                target.takeDamage(self.attack * 1.7 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+                target.takeDamage(self.attack * 2 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def cantrip(self, target):
         crit = random.randint(1, 100)
@@ -563,17 +568,17 @@ class Spellblade(Character):
                 tprint(self.name + " consumes mana to cast a cantrip on " + target.name + "!")
                 target.takeDamage(self.intelligence * 2 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate) + round(self.mana * 0.3, 2))
                 self.mana = round(self.mana*0.7, 2)
-        tprint(self.name + " has " + str(self.mana) + " mana!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
     
     def ult(self, target):
         time.sleep(0.8)
-        ultType = input("Which ultimate do you want to cast? Arcane Flash (1) or Esoteric Epitaph (2)")
+        ultType = input("Which ultimate do you want to cast? Arcane Flash (1) or Esoteric Epitaph (2) ")
         if ultType == "1":
             self.mana -= 90
             crit = random.randint(1, 100)
             if crit > self.cRate:
                 tprint(self.name + " casts Arcane Flash on " + target.name + "!")
-                target.takeDamage(self.attack * 2.6 * self.incMight - target.defence*(1-self.penRate))
+                target.takeDamage(self.attack * 2.6 * self.incMight - target.defence*(1-self.penRate)*0.5)
     
             else:
                 tprint("Critical hit!")
@@ -589,8 +594,8 @@ class Spellblade(Character):
             
 
 #You have 25 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10, Critical Damage by 0.2, Incantation Might/Penetration/Damage Taken Reduction by 0.1.
-#Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10, Critical Damage is 2, Incantation Might is 1, Penetration Rate is 0, Accuracy is 80
-#Max Attack/Defence/Intelligence/Wisdom is 20, Health is 2000, Critical Rate is 70, Critical Damage is 3, Incantation Might is 2, Penetration Rate is 1, Accutacy is 80
+#Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10, Critical Damage is 2, Incantation Might is 1, Penetration Rate/Damage Taken Reduction is 0, Accuracy is 80
+#Max Attack/Defence/Intelligence/Wisdom is 20, Health is 2000, Critical Rate is 70, Critical Damage is 3, Incantation Might is 2, Penetration Rate is 1, Damage Taken Reduction is 0.5, Accuracy is 80
 
 CHARACTER_CLASSES = {
     "barbarian": Barbarian,
@@ -618,8 +623,68 @@ for i in range(2):
         class_name = input("Enter the player's class: ").strip().lower()
 
     # TODO: add way to chose stats
-    players.append(CHARACTER_CLASSES[class_name](player_name, 1000, 10, 10, 10, 10, 2, 0, 1, 0, 0, 1, 80, 3))
+    SP = 25
+    print("You have 25 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10, Critical Damage by 0.2, Incantation Might/Penetration/Damage Taken Reduction by 0.1.")
+    print("Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10, Critical Damage is 2, Incantation Might is 1, Penetration Rate/Damage Taken Reduction is 0, Accuracy is 80")
+    print("Max Attack/Defence/Intelligence/Wisdom is 20, Health is 2000, Critical Rate is 70, Critical Damage is 3, Incantation Might is 2, Penetration Rate is 1, Damage Taken Reduction is 0.5, Accuracy is 80")
 
+    health = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Health? "))
+    while health > 10 or health < 0 or health > SP:
+        health = int(input("Please input a valid number "))
+    SP -= health
+
+    attack = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Attack? "))
+    while attack > 10 or attack < 0 or health > SP:
+        attack = int(input("Please input a valid number "))
+    SP -= attack
+
+    defence = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Defence? "))
+    while defence > 10 or defence < 0 or health > SP:
+        defence = int(input("Please input a valid number "))
+    SP -= defence
+
+    intelligence = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Intelligence? "))
+    while intelligence > 10 or intelligence < 0 or health > SP:
+        intelligence = int(input("Please input a valid number "))
+    SP -= intelligence
+
+    wisdom = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Wisdom? "))
+    while wisdom > 10 or wisdom < 0 or health > SP:
+        wisdom = int(input("Please input a valid number "))
+    SP -= wisdom
+
+    cRate = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Critical Rate? "))
+    while cRate > 8 or cRate < 0 or health > SP:
+        cRate = int(input("Please input a valid number "))
+    SP -= cRate
+
+    cDmg = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Critical Damage? "))
+    while cDmg > 10 or cDmg < 0 or health > SP:
+        cDmg = int(input("Please input a valid number "))
+    SP -= cDmg
+
+    penRate = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Penetration Rate? "))
+    while penRate > 10 or penRate < 0 or health > SP:
+        penRate = int(input("Please input a valid number "))
+    SP -= penRate
+
+    incMight = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Incantation Might? "))
+    while incMight > 10 or incMight < 0 or health > SP:
+        incMight = int(input("Please input a valid number "))
+    SP -= incMight
+
+    dmgReduction = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Damage Taken Reduction? "))
+    while dmgReduction > 5 or dmgReduction < 0 or health > SP:
+        dmgReduction = int(input("Please input a valid number "))
+    SP -= dmgReduction
+
+    manaRegen = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Mana Regeneration Rate? "))
+    while manaRegen > 10 or manaRegen < 0 or health > SP:
+        manaRegen = int(input("Please input a valid number "))
+    SP -= manaRegen
+        
+    players.append(CHARACTER_CLASSES[class_name](player_name, (health*100 + 1000), (attack + 10), (defence + 10), (intelligence + 10), (wisdom + 10), (cRate * 7.5 + 15), (cDmg * 0.1 + 2), (penRate * 0.1), (incMight * 0.1 + 1), (dmgReduction*0.1), (manaRegen * 0.1 + 1), 80, 3))
+#(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
 # randomly decide who goes first
 if random.randint(0, 2) == 0:
     players = players[::-1]
