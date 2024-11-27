@@ -205,11 +205,11 @@ class Paladin(Character):
 
     def ult(self, target):
         self.mana -= 110
-        self.dmgReduction += 0.3
+        self.dmgReduction += 0.05
         self.health += 50
-        self.maxHealth += 80
+        self.maxHealth += 200
 
-        tprint(self.name + " used Radiant Decree, gaining 50 Health, 80 Max Health and +30% Damage Taken Reduction!")
+        tprint(self.name + " used Radiant Decree, gaining 50 Health, 200 Max Health and +5% Damage Taken Reduction!")
         tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
 
 class SecretKeeper(Character):
@@ -383,6 +383,7 @@ class Executioner(Character):
                     tprint("Critical hit!")
                     tprint(self.name + " attacks " + target.name + "!")
                     target.takeDamage(self.attack * 1.4 * self.incMight * self.cDmg - target.defence*(1-self.penRate) + target.health * 0.1)
+        
         tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def ult(self, target):
@@ -392,21 +393,21 @@ class Executioner(Character):
         if target.health <= target.maxHealth*0.5:
             if crit > self.cRate:
                 tprint(self.name + " uses Invitation to a Beheading on " + target.name + "!")
-                target.takeDamage(self.attack * 2.5 * self.incMight + target.maxHealth * 0.1 - target.defence * (1-self.penRate))
+                target.takeDamage(self.attack * 3 * self.incMight + target.maxHealth * 0.1 - target.defence * (1-self.penRate))
             
             else:
                 tprint("Critical hit!")
                 tprint(self.name + " uses Invitation to a Beheading on " + target.name + "!")
-                target.takeDamage(self.attack * 2.5 * self.incMight * self.cDmg + target.maxHealth * 0.1 - target.defence * (1-self.penRate))
+                target.takeDamage(self.attack * 3 * self.incMight * self.cDmg + target.maxHealth * 0.1 - target.defence * (1-self.penRate))
         else:
             if crit > self.cRate:
                 tprint(self.name + " uses Invitation to a Beheading on " + target.name + "!")
-                target.takeDamage(self.attack * 2.5 * self.incMight - target.defence*(1-self.penRate))
+                target.takeDamage(self.attack * 3 * self.incMight - target.defence*(1-self.penRate))
            
             else:
                 tprint("Critical hit!")
                 tprint(self.name + " uses Invitation to a Beheading on " + target.name + "!")
-                target.takeDamage(self.attack * 2.5 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
+                target.takeDamage(self.attack * 3 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
 
 class Vampire(Character):
     def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
@@ -471,14 +472,14 @@ class Vampire(Character):
             self.health *= 0.95
             tprint(self.name + " consumed health to cast Blood Moon Rising on " + target.name + "!")
             tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
-            target.takeDamage((self.intelligence * 2.2 + 40) * self.incMight - target.wisdom*(1-self.penRate))
+            target.takeDamage((self.intelligence * 3 + 40) * self.incMight - target.wisdom*(1-self.penRate))
       
         else:
             self.health *= 0.95
             tprint("Critical hit!")
             tprint(self.name + " consumed health to cast Blood Moon Rising on " + target.name + "!")
             tprint(self.name + " has " + str(self.health) + " health left!")
-            target.takeDamage((self.intelligence * 2.2 + 40) * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
+            target.takeDamage((self.intelligence * 3 + 40) * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
 
 class FogWalker(Character):
     def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
@@ -504,8 +505,8 @@ class FogWalker(Character):
                 tprint(self.name + " casts a cantrip on " + target.name + ", decreasing their accuracy by 3%!")
                 target.takeDamage(self.intelligence * 1.5 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
                 target.accuracy -= 3
-        tprint(target.name + " has " + str(target.accuracy) + "% accuracy!")
-        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
+            tprint(target.name + " has " + str(target.accuracy) + "% accuracy!")
+            tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
         
     def ult(self, target):
         self.mana -= 110
@@ -513,13 +514,13 @@ class FogWalker(Character):
 
         if crit > self.cRate:
             tprint(self.name + " casts Miasma on " + target.name + ", decreasing their accuracy by 5%!")
-            target.takeDamage(self.intelligence * 2 * self.incMight - target.wisdom*(1-self.penRate))
+            target.takeDamage(self.intelligence * 2.5 * self.incMight - target.wisdom*(1-self.penRate))
             target.accuracy -= 1
 
         else:
             tprint("Critical hit!")
             tprint(self.name + " casts Miasma on " + target.name + ", decreasing their accuracy by 5%!")
-            target.takeDamage(self.intelligence * 2 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
+            target.takeDamage(self.intelligence * 2.5 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
             target.accuracy -= 5
         tprint(target.name + " has " + str(target.accuracy) + "% accuracy!")
 
@@ -578,12 +579,12 @@ class Spellblade(Character):
             crit = random.randint(1, 100)
             if crit > self.cRate:
                 tprint(self.name + " casts Arcane Flash on " + target.name + "!")
-                target.takeDamage(self.attack * 2.6 * self.incMight - target.defence*(1-self.penRate)*0.5)
+                target.takeDamage(self.attack * 2.3 * self.incMight - target.defence*(1-self.penRate)*0.5)
     
             else:
                 tprint("Critical hit!")
                 tprint(self.name + " casts Arcane Flash on " + target.name + "!")
-                target.takeDamage(self.attack * 2.6 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
+                target.takeDamage(self.attack * 2.3 * self.incMight * self.cDmg - target.defence*(1-self.penRate)*0.5)
                 
         elif ultType == "2":
             self.mana -= 90
@@ -623,8 +624,8 @@ for i in range(2):
         class_name = input("Enter the player's class: ").strip().lower()
 
     # TODO: add way to chose stats
-    SP = 25
-    print("You have 25 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10, Critical Damage by 0.2, Incantation Might/Penetration/Damage Taken Reduction by 0.1.")
+    SP = 30
+    print("You have 30 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10, Critical Damage by 0.2, Incantation Might/Penetration/Damage Taken Reduction by 0.1.")
     print("Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10, Critical Damage is 2, Incantation Might is 1, Penetration Rate/Damage Taken Reduction is 0, Accuracy is 80")
     print("Max Attack/Defence/Intelligence/Wisdom is 20, Health is 2000, Critical Rate is 70, Critical Damage is 3, Incantation Might is 2, Penetration Rate is 1, Damage Taken Reduction is 0.5, Accuracy is 80")
 
@@ -668,7 +669,7 @@ for i in range(2):
         penRate = int(input("Please input a valid number "))
     SP -= penRate
 
-    incMight = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Incantation Might? "))
+    incMight = int(input("You have " + str(SP)+ " skill points. How many skill poinsts do you want to invest in Incantation Might? "))
     while incMight > 10 or incMight < 0 or health > SP:
         incMight = int(input("Please input a valid number "))
     SP -= incMight
