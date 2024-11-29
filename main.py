@@ -437,7 +437,7 @@ class Vampire(Character):
                 tprint(self.name + " attacks " + target.name + "!")
                 target.takeDamage(self.attack * 1.8 * self.incMight - target.defence*(1-self.penRate))
                 self.health += (self.attack * 1.8 * self.incMight - target.defence*(1-self.penRate))/4
-                tprint(self.name + " restored " + str((self.attack * 1.8 * self.incMight * self.cDmg - target.defence*(1-self.penRate))/4) + " health!")
+                tprint(self.name + " restored " + str(round((self.attack * 1.8 * self.incMight * self.cDmg - target.defence*(1-self.penRate)))/4) + " health!")
                 tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
             
             else:
@@ -445,7 +445,7 @@ class Vampire(Character):
                 tprint(self.name + " attacks " + target.name + "!")
                 target.takeDamage(self.attack * 1.8 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
                 self.health += (self.attack * 1.8 * self.incMight * self.cDmg - target.defence*(1-self.penRate))/4
-                tprint(self.name + " restored " + str((self.attack * 1.8 * self.incMight * self.cDmg - target.defence*(1-self.penRate))/4) + " health!")
+                tprint(self.name + " restored " + str(round((self.attack * 1.8 * self.incMight * self.cDmg - target.defence*(1-self.penRate)))/4) + " health!")
                 tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
         tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
@@ -602,6 +602,43 @@ class Spellblade(Character):
             self.manaRegen += 0.5
             tprint(self.name + " casts Esoteric Epitaph, gaining +6 Attack and Intelligence, and +50% Mana Regeneration Rate!")
             
+class Drunkard(Character):
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
+        self.ultMana = 140
+    def potion(self):
+        originalHealth = self.health
+        self.health += 50
+        self.mana += 30 * self.manaRegen
+        self.attack += 1
+        self.dmgReduction += 0.01
+        self.accuracy -= 4
+
+        if self.health > self.maxHealth:
+            self.health = self.maxHealth
+            tprint(self.name + " drank some beer and recovered " + str(self.health - originalHealth) + " health!")
+
+        else:
+            tprint(self.name + " drank some beer and recovered 50 health!")
+        tprint(self.name + " gained +1 Attack, +1% Damage Taken Reduction, and 5% Critical Hit Rate, but lost 4% Accuracy!")
+        tprint(self.name + " has " + str(round(self.health, 2)) + " health left!")
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
+        self.potions -= 1
+    def ult(self,target):
+        self.mana -= 140
+        self.potions += 2
+        crit = random.randint(1, 100)
+        
+        if crit > self.cRate:
+            tprint(self.name + " uses Drunken Frenzy on " + target.name + ", gaining 2 bottles of beer and consuming one of them!")
+            self.potion()
+            target.takeDamage(self.attack * 3.4 * self.incMight - target.defence*(1-self.penRate))
+
+        else:
+            tprint("Critical hit!")
+            tprint(self.name + " uses Drunken Frenzy on " + target.name + ", gaining 2 bottles of beer and consuming one of them!")
+            self.potion()
+            target.takeDamage(self.attack * 3.4 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
 
 #You have 25 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10, Critical Damage by 0.2, Incantation Might/Penetration/Damage Taken Reduction by 0.1.
 #Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10, Critical Damage is 2, Incantation Might is 1, Penetration Rate/Damage Taken Reduction is 0, Accuracy is 80
@@ -616,7 +653,8 @@ CHARACTER_CLASSES = {
     "executioner": Executioner,
     "vampire": Vampire,
     "fog walker": FogWalker,
-    "spellblade": Spellblade
+    "spellblade": Spellblade,
+    "drunkard": Drunkard
 }
 
 players = []
