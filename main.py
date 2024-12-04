@@ -10,6 +10,14 @@ def tprint(text):
         time.sleep(0.05)
     print()
     
+def tinput(text):
+    time.sleep(0.8)
+    for c in text:
+        print(c,end="")
+        stdout.flush()
+        time.sleep(0.05)
+    inp = input()
+    return inp
 class Character:
     def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
         self.name = name
@@ -312,10 +320,10 @@ class Alchemist(Character):
     def ult(self, target):
         self.mana -= 120
         self.potions += 3
-        self.intelligence += 8
-        self.cRate += 20
+        self.intelligence += 4
+        self.cRate += 10
         
-        tprint(self.name + " used Magnum Opus, brewing 3 potions, gaining 8 Intelligence and +20% Critical Rate!")
+        tprint(self.name + " used Magnum Opus, brewing 3 potions, gaining 4 Intelligence and +10% Critical Rate!")
 
 class Ranger(Character):
     def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
@@ -582,7 +590,7 @@ class Spellblade(Character):
     
     def ult(self, target):
         time.sleep(0.8)
-        ultType = input("Which ultimate do you want to cast? Arcane Flash (1) or Esoteric Epitaph (2) ")
+        ultType = tinput("Which ultimate do you want to cast? Arcane Flash (1) or Esoteric Epitaph (2) ")
         if ultType == "1":
             self.mana -= 90
             crit = random.randint(1, 100)
@@ -597,10 +605,10 @@ class Spellblade(Character):
                 
         elif ultType == "2":
             self.mana -= 90
-            self.attack += 6
-            self.intelligence += 6
-            self.manaRegen += 0.5
-            tprint(self.name + " casts Esoteric Epitaph, gaining +6 Attack and Intelligence, and +50% Mana Regeneration Rate!")
+            self.attack += 2
+            self.intelligence += 2
+            self.manaRegen += 0.2
+            tprint(self.name + " casts Esoteric Epitaph, gaining +2 Attack and Intelligence, and +20% Mana Regeneration Rate!")
             
 class Drunkard(Character):
     def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
@@ -639,7 +647,143 @@ class Drunkard(Character):
             tprint(self.name + " uses Drunken Frenzy on " + target.name + ", gaining 2 bottles of beer and consuming one of them!")
             self.potion()
             target.takeDamage(self.attack * 3.4 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
+class Acrobat(Character):
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
+        self.ultMana = 160
+        self.swiftness = 0
+        self.flatDmg = 0
 
+    def strike(self, target):
+        crit = random.randint(1, 100)
+        hit = random.randint(1, 100)
+        self.mana += 10 * self.manaRegen
+        self.swiftness += 1
+        
+        if hit > self.accuracy:
+            tprint(self.name + " attacks " + target.name + ", gaining 1 stack of Swiftness!")
+            tprint(self.name + " missed!")
+        
+        else:
+            if crit > self.cRate:
+                tprint(self.name + " attacks " + target.name + ", gaining 1 stack of Swiftness!")
+                target.takeDamage(self.attack * self.incMight - target.defence*(1-self.penRate) + self.flatDmg)
+
+            else:
+                tprint("Critical hit!")
+                tprint(self.name + " attacks " + target.name + ", gaining 1 stack of Swiftness!")
+                target.takeDamage(self.attack * self.incMight * self.cDmg - target.defence*(1-self.penRate) + self.flatDmg)
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
+    def ult(self,target):
+        self.mana -= 160
+        self.flatDmg += 10
+        self.accuracy += self.swiftness*3
+        
+        tprint(self.name + " casts Pirouette on " + target.name + ", consuming all stacks of Swiftness, gaining increased Accuracy and Flat Damage +10!")
+        tprint(self.name + " has " + str(self.accuracy) + "% accuracy!")
+        for i in range(0,self.swiftness,2):
+            crit = random.randint(1, 100)
+            hit = random.randint(1, 100)
+            
+            if hit > self.accuracy:
+                tprint(self.name + " attacks " + target.name + "!")
+                tprint(self.name + " missed!")
+            
+            else:
+                if crit > self.cRate:
+                    tprint(self.name + " attacks " + target.name + "!")
+                    target.takeDamage(self.attack * self.incMight - target.defence*(1-self.penRate) + self.flatDmg)
+
+                else:
+                    tprint("Critical hit!")
+                    tprint(self.name + " attacks " + target.name + "!")
+                    target.takeDamage(self.attack * self.incMight * self.cDmg - target.defence*(1-self.penRate) + self.flatDmg)
+            self.flatDmg += 1
+        self.swiftness = 0
+class Puppeteer(Character):
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
+        self.ultMana = 130
+        self.puppets = 1
+    def strike(self, target):
+        crit = random.randint(1, 100)
+        hit = random.randint(1, 100)
+        self.mana += 10 * self.manaRegen
+        
+        if hit > self.accuracy:
+            tprint(self.name + " attacks " + target.name + "!")
+            tprint(self.name + " missed!")
+        
+        else:
+            if crit > self.cRate:
+                tprint(self.name + " attacks " + target.name + "!")
+                target.takeDamage(self.attack * 1.3 * self.incMight - target.defence*(1-self.penRate))
+
+            else:
+                tprint("Critical hit!")
+                tprint(self.name + " attacks " + target.name + "!")
+                target.takeDamage(self.attack * 1.3 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
+        for i in range(self.puppets):
+            crit = random.randint(1, 100)
+            hit = random.randint(1, 100)
+            
+            if hit > self.accuracy:
+                tprint(self.name + "'s puppet attacks " + target.name + "!")
+                tprint(self.name + "'s puppet missed!")
+            
+            else:
+                if crit > self.cRate:
+                    tprint(self.name + "'s puppet attacks " + target.name + "!")
+                    target.takeDamage(self.attack * 1.1 * self.incMight - target.defence*(1-self.penRate))
+
+                else:
+                    tprint("Critical hit!")
+                    tprint(self.name + "'s puppet attacks " + target.name + "!")
+                    target.takeDamage(self.attack * 1.1 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
+
+    def cantrip(self, target):
+        crit = random.randint(1, 100)
+        hit = random.randint(1, 100)
+        self.mana += 10 * self.manaRegen
+        
+        if hit > self.accuracy:
+            tprint(self.name + " casts a cantrip on " + target.name + "!")
+            tprint(self.name + " missed!")
+        
+        else:
+            if crit > self.cRate:
+                tprint(self.name + " casts a cantrip on " + target.name + "!")
+                target.takeDamage(self.intelligence * 1.3 * self.incMight - target.wisdom*(1-self.penRate))
+
+            else:
+                tprint("Critical hit!")
+                tprint(self.name + " casts a cantrip on " + target.name + "!")
+                target.takeDamage(self.intelligence * 1.3 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
+        for i in range(self.puppets):
+            crit = random.randint(1, 100)
+            hit = random.randint(1, 100)
+            
+            if hit > self.accuracy:
+                tprint(self.name + "'s puppet casts a cantrip on " + target.name + "!")
+                tprint(self.name + "'s puppet missed!")
+            
+            else:
+                if crit > self.cRate:
+                    tprint(self.name + "'s puppet casts a cantrip on " + target.name + "!")
+                    target.takeDamage(self.intelligence * 1.1 * self.incMight - target.wisdom*(1-self.penRate))
+
+                else:
+                    tprint("Critical hit!")
+                    tprint(self.name + "'s puppet casts a cantrip on " + target.name + "!")
+                    target.takeDamage(self.intelligence * 1.1 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
+    def ult(self,target):
+        self.puppets += 1
+        self.incMight += 0.2
+        self.attack += 2
+        self.intelligence += 2
+        tprint(self.name + " uses Masquerade of the Collective on, creating 1 puppet, gaining +2 Attack and Intelligence, and +20% Incantation Might!")
 #You have 25 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10, Critical Damage by 0.2, Incantation Might/Penetration/Damage Taken Reduction by 0.1.
 #Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10, Critical Damage is 2, Incantation Might is 1, Penetration Rate/Damage Taken Reduction is 0, Accuracy is 80
 #Max Attack/Defence/Intelligence/Wisdom is 20, Health is 2000, Critical Rate is 70, Critical Damage is 3, Incantation Might is 2, Penetration Rate is 1, Damage Taken Reduction is 0.5, Accuracy is 80
@@ -654,7 +798,9 @@ CHARACTER_CLASSES = {
     "vampire": Vampire,
     "fog walker": FogWalker,
     "spellblade": Spellblade,
-    "drunkard": Drunkard
+    "drunkard": Drunkard,
+    "acrobat": Acrobat,
+    "puppeteer": Puppeteer
 }
 
 players = []
@@ -670,7 +816,6 @@ for i in range(2):
 
         class_name = input("Enter the player's class: ").strip().lower()
 
-    # TODO: add way to chose stats
     SP = 30
     print("You have 30 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10, Critical Damage by 0.2, Incantation Might/Penetration/Damage Taken Reduction by 0.1.")
     print("Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10, Critical Damage is 2, Incantation Might is 1, Penetration Rate/Damage Taken Reduction is 0, Accuracy is 80")
@@ -741,8 +886,7 @@ playing = True
 while playing:
     for attacker, defender in (players, players[::-1]):
         while True: 
-            time.sleep(0.8)
-            action = input("It is " + attacker.name + "'s turn. What do you want to do? 1. Strike 2. Cantrip 3. Ultimate 4. Potion ")
+            action = tinput("It is " + attacker.name + "'s turn. What do you want to do? 1. Strike 2. Cantrip 3. Ultimate 4. Potion ")
             if action == "1":
                 attacker.strike(defender)
                 break
