@@ -175,12 +175,12 @@ class Paladin(Character):
         else:
             if crit > self.cRate:
                 tprint(self.name + " attacks " + target.name + "!")
-                target.takeDamage(self.attack * 2 * self.incMight - target.defence*(1-self.penRate) + self.maxHealth * 0.02)
+                target.takeDamage(self.attack * 2 * self.incMight - target.defence*(1-self.penRate) + self.maxHealth * 0.005)
 
             else:
                 tprint("Critical hit!")
                 tprint(self.name + " attacks " + target.name + "!")
-                target.takeDamage(self.attack * 2 * self.incMight * self.cDmg - target.defence*(1-self.penRate) + self.maxHealth * 0.02)
+                target.takeDamage(self.attack * 2 * self.incMight * self.cDmg - target.defence*(1-self.penRate) + self.maxHealth * 0.005)
         tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
     def cantrip(self, target):
         crit = random.randint(1, 100)
@@ -194,12 +194,12 @@ class Paladin(Character):
         else:
             if crit > self.cRate:
                 tprint(self.name + " casts a cantrip on " + target.name + "!")
-                target.takeDamage(self.intelligence * 2 * self.incMight - target.wisdom*(1-self.penRate) + self.maxHealth * 0.02)
+                target.takeDamage(self.intelligence * 2 * self.incMight - target.wisdom*(1-self.penRate) + self.maxHealth * 0.005)
         
             else:
                 tprint("Critical hit!")
                 tprint(self.name + " casts a cantrip on " + target.name + "!")
-                target.takeDamage(self.intelligence * 2 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate) + self.maxHealth * 0.02)
+                target.takeDamage(self.intelligence * 2 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate) + self.maxHealth * 0.005)
         tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
 
     def takeDamage(self, damage):
@@ -700,6 +700,7 @@ class Acrobat(Character):
                     target.takeDamage(self.attack * self.incMight * self.cDmg - target.defence*(1-self.penRate) + self.flatDmg)
             self.flatDmg += 1
         self.swiftness = 0
+
 class Puppeteer(Character):
     def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
         super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
@@ -724,6 +725,7 @@ class Puppeteer(Character):
                 tprint(self.name + " attacks " + target.name + "!")
                 target.takeDamage(self.attack * 1.3 * self.incMight * self.cDmg - target.defence*(1-self.penRate))
         tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
+
         for i in range(self.puppets):
             crit = random.randint(1, 100)
             hit = random.randint(1, 100)
@@ -761,6 +763,7 @@ class Puppeteer(Character):
                 tprint(self.name + " casts a cantrip on " + target.name + "!")
                 target.takeDamage(self.intelligence * 1.3 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
         tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
+
         for i in range(self.puppets):
             crit = random.randint(1, 100)
             hit = random.randint(1, 100)
@@ -778,12 +781,48 @@ class Puppeteer(Character):
                     tprint("Critical hit!")
                     tprint(self.name + "'s puppet casts a cantrip on " + target.name + "!")
                     target.takeDamage(self.intelligence * 1.1 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
+
     def ult(self,target):
+        self.mana -= 130
         self.puppets += 1
-        self.incMight += 0.2
         self.attack += 2
         self.intelligence += 2
-        tprint(self.name + " uses Masquerade of the Collective on, creating 1 puppet, gaining +2 Attack and Intelligence, and +20% Incantation Might!")
+
+        tprint(self.name + " uses Masquerade of the Collective, creating 1 puppet, gaining +2 Attack and Intelligence!")
+
+class Gambler(Character):
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
+        self.ultMana = 110
+    def cantrip(self, target):
+        crit = random.randint(1, 90)
+        hit = random.randint(1, 100)
+        dice = random.randint(1,6)
+        self.mana += 2 * self.manaRegen * dice
+        
+        tprint(self.name + " rolled a " + str(dice) + "!")
+
+        if hit > self.accuracy:
+            tprint(self.name + " casts a cantrip on " + target.name + "!")
+            tprint(self.name + " missed!")
+        
+        else:
+            if crit > self.cRate:
+                tprint(self.name + " casts a cantrip on " + target.name + "!")
+                target.takeDamage(self.intelligence * dice / 1.5 * self.incMight - target.wisdom*(1-self.penRate))
+
+            else:
+                tprint("Critical hit!")
+                tprint(self.name + " casts a cantrip on " + target.name + "!")
+                target.takeDamage(self.intelligence * dice / 1.5 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate))
+        tprint(self.name + " has " + str(round(self.mana, 2)) + " mana!")
+    def ult(self, target):
+        dice = random.randint(1,6)
+        self.mana -= 110
+        self.intelligence += dice
+        self.manaRegen += dice/10
+        tprint(self.name + " has rolled a " + str(dice) + "!")
+        tprint(self.name + " used Loaded Dice, gaining +" + str(dice) + " Intelligence and +" + str(dice) + "0% Mana Regeneration Rate!")
 #You have 25 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10, Critical Damage by 0.2, Incantation Might/Penetration/Damage Taken Reduction by 0.1.
 #Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10, Critical Damage is 2, Incantation Might is 1, Penetration Rate/Damage Taken Reduction is 0, Accuracy is 80
 #Max Attack/Defence/Intelligence/Wisdom is 20, Health is 2000, Critical Rate is 70, Critical Damage is 3, Incantation Might is 2, Penetration Rate is 1, Damage Taken Reduction is 0.5, Accuracy is 80
@@ -800,7 +839,8 @@ CHARACTER_CLASSES = {
     "spellblade": Spellblade,
     "drunkard": Drunkard,
     "acrobat": Acrobat,
-    "puppeteer": Puppeteer
+    "puppeteer": Puppeteer,
+    "gambler": Gambler
 }
 
 players = []
@@ -819,7 +859,7 @@ for i in range(2):
     SP = 30
     print("You have 30 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10, Critical Damage by 0.2, Incantation Might/Penetration/Damage Taken Reduction by 0.1.")
     print("Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10, Critical Damage is 2, Incantation Might is 1, Penetration Rate/Damage Taken Reduction is 0, Accuracy is 80")
-    print("Max Attack/Defence/Intelligence/Wisdom is 20, Health is 2000, Critical Rate is 70, Critical Damage is 3, Incantation Might is 2, Penetration Rate is 1, Damage Taken Reduction is 0.5, Accuracy is 80")
+    print("Max Attack/Defence/Intelligence/Wisdom is 20, Health is 2000, Critical Rate is 70, Critical Damage is 3, Incantation Might is 2, Penetration Rate is 1, Damage Taken Reduction is 0.05, Accuracy is 80")
 
     health = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Health? "))
     while health > 10 or health < 0 or health > SP:
@@ -861,7 +901,7 @@ for i in range(2):
         penRate = int(input("Please input a valid number "))
     SP -= penRate
 
-    incMight = int(input("You have " + str(SP)+ " skill points. How many skill poinsts do you want to invest in Incantation Might? "))
+    incMight = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Incantation Might? "))
     while incMight > 10 or incMight < 0 or incMight > SP:
         incMight = int(input("Please input a valid number "))
     SP -= incMight
@@ -875,7 +915,7 @@ for i in range(2):
     while manaRegen > 10 or manaRegen < 0 or manaRegen > SP:
         manaRegen = int(input("Please input a valid number "))
     SP -= manaRegen
-        
+
     players.append(CHARACTER_CLASSES[class_name](player_name, (health*100 + 1000), (attack + 10), (defence + 10), (intelligence + 10), (wisdom + 10), (cRate * 7.5 + 15), (cDmg * 0.1 + 2), (penRate * 0.1), (incMight * 0.1 + 1), (dmgReduction*0.05), (manaRegen * 0.1 + 1), 80, 3))
 #(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
 # randomly decide who goes first
