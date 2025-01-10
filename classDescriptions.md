@@ -6,7 +6,7 @@ Bloody Cleave - (Strike) Deal 180% Physical Damage. If under 50% Max Health, dea
 
 Primal Force - (Cantrip) Deal 200% Magic Damage.
 
-Rage Burst - (Ultimate) [Burst] Deal 330% Physical Damage. If under 50% Max Health, deal additional 20% Max Health as Physical Damage.
+Rage Burst - (Ultimate) [Burst] Deal 330% Physical Damage. If under 50% Max Health, deal additional 20% Max Health as Physical Damage. Costs 100 Mana.
 
 
 Paladin - [Sustain, Health]
@@ -19,7 +19,7 @@ Smite - (Strike) Deal 170% Physical Damage. Deal additional 0.5% Max Health as T
 
 Guiding Bolt - (Cantrip) Deal 170% Magic Damage. Deal additional 0.5% Max Health as True Damage.
 
-Radiant Decree - (Ultimate) [Heal, Enhance] Recover 25 Health, Gain +100 Max Health and +5% Damage Taken Reduction.
+Radiant Decree - (Ultimate) [Heal, Enhance] Recover 25 Health, Gain +100 Max Health and +5% Damage Taken Reduction. Costs 110 Mana.
 
 
 Secret Keeper - [Combo, Penetration Rate]
@@ -30,7 +30,7 @@ Lancing Silver - (Strike) Deal 200% Physical Damage.
 
 Offensive Analysis - (Cantrip) Gain +5% Penetration Rate and deal 180% Magic Damage. This attack enjoys +20% Penetration Rate.
 
-Voice In The Mind - (Ultimate) [Burst, Enhance] Gain +25% Penetration Rate and deal 250% Magic Damage. This attack enjoys +30% Penetration Rate.
+Voice In The Mind - (Ultimate) [Burst, Enhance] Gain +25% Penetration Rate and deal 250% Magic Damage. This attack enjoys +30% Penetration Rate. Costs 120 Mana.
 
 
 Alchemist - [Critical, Sustain]
@@ -43,7 +43,7 @@ Transmutation Blade - (Strike) Deal 200% Physical Damage.
 
 Potion Flurry - (Cantrip) Consume 1 Potion to gain Temporary Critical Rate +15%. Deal 200% Magic Damage. If this attack is a Critical Hit, brew 1 Potion.
 
-Magnum Opus - (Ultimate) [Enhance, Replenish] Brew 3 Potions, gain +2 Intelligence and +10% Critical Rate.
+Magnum Opus - (Ultimate) [Enhance, Replenish] Brew 3 Potions, gain +2 Intelligence and +10% Critical Rate. Costs 120 Mana.
 
 
 Ranger - [Combo, Critical]
@@ -54,7 +54,7 @@ Steel Wind Strike - (Strike) Gain +10% Critical Damage and deal 190% Physical Da
 
 Spectral Quiver - (Cantrip) Deal 200% Magic Damage.
 
-Fatal Flicker - (Ultimate) [Burst, Enhance] Gain 5% Critical Rate and 25% Critical Damage. Deal 200% Physical Damage.
+Fatal Flicker - (Ultimate) [Burst, Enhance] Gain 5% Critical Rate and 25% Critical Damage. Deal 200% Physical Damage. Costs 140 Mana.
 
 
 Executioner - [Burst]
@@ -65,7 +65,7 @@ Beheading - (Strike) Deal 140% Physical Damage. Deal additional 5% Target Curren
 
 Hand of Justice - (Cantrip) Deal 200% Magic Damage.
 
-Death Sentence - (Ultimate) [Burst] Deal 300% Physical Damage. If Target's Health is under 50% of their Max Health, deal additional 10% Max Health as True Damage.
+Death Sentence - (Ultimate) [Burst] Deal 300% Physical Damage. If Target's Health is under 50% of their Max Health, deal additional 10% Max Health as True Damage. Costs 130 Mana.
 
 
 Vampire - [Sustain, Boiling Blood, Critical]
@@ -92,4 +92,86 @@ Smoke and Mirrors - (Ultimate) [Burst, Debuff] Deal 250% Magic Damage. Decrease 
 
 Spellblade - [Mana, Combo]
 
-Mana Edge - (Strike) Deal 160% Physical Damage. Restore 20 additional Mana, which is affected by 
+SP Investment Recommendation - Attack, Intelligence, Critical Rate, Mana Regeneration Rate
+
+Mana Edge - (Strike) Deal 160% Physical Damage. Restore 20 additional Mana, which is affected by Mana Regeneration Rate.
+
+Overclock - (Cantrip) Deal 200% Magic Damage. Consume 30% Mana to deal equivalent additional True Damage.
+
+Arcane Flash - (Ultimate-1) [Burst] Deal 230% Physical Damage. Costs 90 Mana.
+
+Esoteric Epitaph - (Ultimate-2) [Enhance] Gain +1 Attack and Intelligence, and +10% Mana Regeneration Rate. Costs 90 Mana.
+
+
+Drunkard - [Sustain, Combo]
+
+SP Investment Recommendation - Attack, Critical Rate, Incantation Might
+
+Chug Beer - (Passive) Potions only recover 50 Health and decrease Accuracy by 4%, but now increase Attack by 1, Damage Taken Reduction by 1%, and Critical Rate by 5%.
+
+Skull Bash - (Strike) Deal 200% Physical Damage.
+
+Beer Toss - (Cantrip) Deal 200% Magic Damage.
+
+Drunken Frenzy - (Ultimate) [Burst, Enhance, Replenish] Gain 2 Potions, immediately consuming 1 of them. Deal 260% Physical Damage. Costs 160 Mana.
+
+
+Acrobat - [Burst, Extra Action]
+
+SP Investment Recommendation - Attack, Critical Rate, Incantation Might, Mana Regeneration Rate
+
+Pirouette - (Strike) Deal 160% Physical Damage. Gain 1 stack of Swiftness.
+
+Song of Twirling - (Cantrip) Deal 200% Magic Damage.
+
+Swirling Steps - (Ultimate) [Burst] Consume all stacks of Swiftness and gain equivalent % Accuracy. Gain +10 Flat Damage. For every 2 stacks of Swiftness consumed, attack once, dealing 130% Physical Damage. Costs 160 Mana.
+
+
+Puppeteer - [Combo, Extra Action]
+
+SP Investment Recommendation - Attack/Intelligence, Critical Rate, Incantation Might, Mana Regeneration Rate
+
+Weaving Blade - (Strike) Deal 130% Physical Damage. For each Puppet present, attack once, dealing 110% Physical Damage.
+
+Dancing Strings - (Cantrip) Deal 130% Magic Damage. For each Puppet present, cast a cantrip once, dealing 110% Magic Damage.
+
+Masquerade of the Collective - (Ultimate) [Enhance] Gain 1 Puppet, +2 Attack and Intelligence. Costs 130 Mana.
+
+
+Gambler - [Burst, Random]
+
+SP Investment Recommendation - Intelligence, Critical Rate, Mana Regeneration Rate
+
+Ace Up the Sleeve - (Strike) Deal 200% Physical Damage.
+
+All In - (Cantrip) Roll a 6-sided dice. Deal 50% Magic Damage multiplied by the dice roll. Mana gain is double the dice roll, which is still affected by Mana Regeneration Rate.
+
+Loaded Dice - (Ultimate) [Enhance] Roll a 6-sided dice. Gain Intelligence equal to the dice roll, and 10% Mana Regeneration Rate multiplied by the dice roll. Costs 110 Mana.
+
+
+Proxy - [Combo, Extra Action, Boiling Blood, Sustain]
+
+SP Investment Recommendation - Incantation Might, Damage Taken Reduction, Mana Regeneration Rate
+
+Call of the Deep - (Passive) When taking an action, command a Tentacle to attack, dealing 200% Tentacle Damage. Base Tentacle Damage is 12.
+
+Font of the Ancient Sea - (Passive) Starting Potions increased to 6. Health Recovery decreased to 60. Gain 1 Ritual Progress after consuming a potion. Base Ritual Progress is 1.
+
+Sacrificial Strike - (Strike) Deal 200% Physical Damage. Consume 5% Current Health and gain +1 Tentacle Damage.
+
+Abyss Command - (Cantrip) Deal 170% Magic Damage. Recover Health equal to Tentacle Damage.
+
+Eldritch Ritual - (Ultimate) [Burst, Enhance] Gain +4 Tentacle Damage. If Ritual Progress is greater than or equal to 3, command Tentacles to attack a number of times equal to Ritual Progress. Decrease Ritual Progress by 3. Costs 120 Mana.
+
+
+Agent - [Poison]
+
+SP Investment Recommendation - Wisdom, Damage Taken Reduction, Mana Regeneration Rate
+
+Contamination - (Passive) Enemies in the Contaminated status take 1 instance of Poison damage and are inflicted with 1 round of Poison after drinking a Potion.
+
+Silent Takedown - (Strike) Deal 200% Physical Damage. Trigger 1 round of Poison. Can lead to Poison Resistance.
+
+Honeyed Words - (Cantrip) Deal 200% Magic Damage. Inflict 1 round of Poison.
+
+Assasin's Mark - (Ultimate) [Enhance, Debuff] Gain +4 Wisdom. Inflict the Contaminated status and 5 rounds of Poison. Costs 100 Mana.
