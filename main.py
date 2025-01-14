@@ -1371,59 +1371,70 @@ for i in range(2):
     print("Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10%, Critical Damage is 100%, Incantation Might/Mana Regeneration Rate is 100%, Penetration Rate/Damage Taken Reduction is 0%, Mana Regeneration Rate is 100%")
     print("Max Attack/Defence/Intelligence/Wisdom is 20, Health is 1500, Critical Rate is 80%, Critical Damage is 200%, Incantation Might is 150%, Penetration Rate is 100%, Damage Taken Reduction is 25%, Mana Regeneration Rate is 200%")
 
-    health = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Health? "))
-    while health > 5 or health < 0 or health > SP:
-        health = int(input("Please input a valid number "))
+    health = input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Health? Each skill point increases Health by 100: ")
+    while health.isnumeric() != True or int(health) > 5 or int(health) < 0 or int(health) > SP:
+        health = input("Please input a valid number ")
+    health = int(health)
     SP -= health
 
-    attack = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Attack? "))
-    while attack > 10 or attack < 0 or attack > SP:
-        attack = int(input("Please input a valid number "))
+    attack = input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Attack? Each skill point increases Attack by 1: ")
+    while attack.isnumeric() != True or int(attack) > 10 or int(attack) < 0 or int(attack) > SP:
+        attack = input("Please input a valid number ")
+    attack = int(attack)
     SP -= attack
 
-    defence = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Defence? "))
-    while defence > 10 or defence < 0 or defence > SP:
-        defence = int(input("Please input a valid number "))
+    defence = input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Defence? Each skill point increases Defence by 1: ")
+    while defence.isnumeric() != True or int(defence) > 10 or int(defence) < 0 or int(defence) > SP:
+        defence = input("Please input a valid number ")
+    defence = int(defence)
     SP -= defence
 
-    intelligence = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Intelligence? "))
-    while intelligence > 10 or intelligence < 0 or intelligence > SP:
-        intelligence = int(input("Please input a valid number "))
+    intelligence = input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Intelligence? Each skill point increases Intelligence by 1: ")
+    while intelligence.isnumeric() != True or int(intelligence) > 10 or int(intelligence) < 0 or int(intelligence) > SP:
+        intelligence = input("Please input a valid number ")
+    intelligence = int(intelligence)
     SP -= intelligence
 
-    wisdom = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Wisdom? "))
-    while wisdom > 10 or wisdom < 0 or wisdom > SP:
-        wisdom = int(input("Please input a valid number "))
+    wisdom = input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Wisdom? Each skill point increases Wisdom by 1: ")
+    while wisdom.isnumeric() != True or int(wisdom) > 10 or int(wisdom) < 0 or int(wisdom) > SP:
+        wisdom = input("Please input a valid number ")
+    wisdom = int(wisdom)
     SP -= wisdom
 
-    cRate = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Critical Rate? "))
-    while cRate > 8 or cRate < 0 or cRate > SP:
-        cRate = int(input("Please input a valid number "))
+    cRate = input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Critical Rate? Each skill point increases Critical Rate by 10%: ")
+    while cRate.isnumeric() != True or int(cRate) > 7 or int(cRate) < 0 or int(cRate) > SP:
+        cRate = input("Please input a valid number ")
+    cRate = int(cRate)
     SP -= cRate
 
-    cDmg = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Critical Damage? "))
-    while cDmg > 5 or cDmg < 0 or cDmg > SP:
-        cDmg = int(input("Please input a valid number "))
+    cDmg = input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Critical Damage? Each skill point increases Critical Damage by 20%: ")
+    while cDmg.isnumeric() != True or int(cDmg) > 5 or int(cDmg) < 0 or int(cDmg) > SP:
+        cDmg = input("Please input a valid number ")
+    cDmg = int(cDmg)
     SP -= cDmg
 
-    penRate = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Penetration Rate? "))
-    while penRate > 10 or penRate < 0 or penRate > SP:
-        penRate = int(input("Please input a valid number "))
+    penRate = input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Penetration Rate? Each skill point increases Penetration Rate by 10%: ")
+    while penRate.isnumeric() != True or int(penRate) > 10 or int(penRate) < 0 or int(penRate) > SP:
+        penRate = input("Please input a valid number ")
+    penRate = int(penRate)
     SP -= penRate
 
-    incMight = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Incantation Might? "))
-    while incMight > 10 or incMight < 0 or incMight > SP:
-        incMight = int(input("Please input a valid number "))
+    incMight = input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Incantation Might? Each skill point increases Incantation Might by 5%: ")
+    while incMight.isnumeric() != True or int(incMight) > 5 or int(incMight) < 0 or int(incMight) > SP:
+        incMight = input("Please input a valid number ")
+    incMight = int(incMight)
     SP -= incMight
 
-    dmgReduction = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Damage Taken Reduction? "))
-    while dmgReduction > 5 or dmgReduction < 0 or dmgReduction > SP:
-        dmgReduction = int(input("Please input a valid number "))
+    dmgReduction = input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Damage Taken Reduction? Each skill point increases Damage Taken Reduction by 5%: ")
+    while dmgReduction.isnumeric() != True or int(dmgReduction) > 5 or int(dmgReduction) < 0 or int(dmgReduction) > SP:
+        dmgReduction = input("Please input a valid number ")
+    dmgReduction = int(dmgReduction)
     SP -= dmgReduction
 
-    manaRegen = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Mana Regeneration Rate? "))
-    while manaRegen > 10 or manaRegen < 0 or manaRegen > SP:
-        manaRegen = int(input("Please input a valid number "))
+    manaRegen = input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Mana Regeneration Rate? Each skill point increases Mana Regeneration Rate by 10%: ")
+    while manaRegen.isnumeric() != True or int(manaRegen) > 10 or int(manaRegen) < 0 or int(manaRegen) > SP:
+        manaRegen = input("Please input a valid number ")
+    manaRegen = int(manaRegen)
     SP -= manaRegen
 
     players.append(CHARACTER_CLASSES[class_name](player_name, (health*100 + 1000), (attack + 10), (defence + 10), (intelligence + 10), (wisdom + 10), (cRate * 7.5 + 15), (cDmg * 0.2 + 2), (penRate * 0.1), (incMight * 0.05 + 1), (dmgReduction*0.05), (manaRegen * 0.1 + 1), 80, 3))
