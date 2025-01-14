@@ -1,7 +1,7 @@
 # nachosPVP
-What happens when the guy in charge of marketing thinks he has plenty of free time and knows OOP? The answer is NachosPVP.
+NachosPVP. What's not to like?
 In the game, you can choose one of many classes, each with their own unique abilities.
-As for the name? You can go ask sbottingota... hehe
+Nothing much else to add, go have fun!
 
 Dependencies: Colorama
 (Just run pip install colorama on your terminal)
