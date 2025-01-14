@@ -28,14 +28,14 @@ SP Investment Recommendations - Intelligence, Critical Rate, Penetration Rate, M
 
 Lancing Silver - (Strike) Deal 200% Physical Damage.
 
-Offensive Analysis - (Cantrip) Gain +5% Penetration Rate and deal 180% Magic Damage. This attack enjoys +20% Penetration Rate.
+Offensive Analysis - (Cantrip) Gain +5% Penetration Rate and deal 200% Magic Damage. This attack enjoys +20% Penetration Rate.
 
 Voice In The Mind - (Ultimate) [Burst, Enhance] Gain +25% Penetration Rate and deal 250% Magic Damage. This attack enjoys +30% Penetration Rate. Costs 120 Mana.
 
 
 Alchemist - [Critical, Sustain]
 
-SP Investment Recommendations - Intelligence, Critical Rate, Critical Damage, Mana Regeneration Rate
+SP Investment Recommendations - Intelligence, Critical Rate, Critical Damage, Penetration Rate, Mana Regeneration Rate
 
 Optimised Potion - (Passive) Potions only recover 80 Health, but healing can Critically Hit.
 
@@ -50,7 +50,7 @@ Ranger - [Combo, Critical]
 
 SP Investment Recommendations - Attack, Critical Rate, Incantation Might, Mana Regeneration Rate
 
-Steel Wind Strike - (Strike) Gain +10% Critical Damage and deal 190% Physical Damage.
+Steel Wind Strike - (Strike) Gain +10% Critical Damage and deal 180% Physical Damage.
 
 Spectral Quiver - (Cantrip) Deal 200% Magic Damage.
 
@@ -70,7 +70,7 @@ Death Sentence - (Ultimate) [Burst] Deal 170% Physical Damage. If Target's Healt
 
 Vampire - [Sustain, Boiling Blood, Critical]
 
-SP Investment Recommendations - Attack (Sustain) / Intelligence (Boiling Blood), Critical Rate, Critical Damage, Incantation Might
+SP Investment Recommendations - Attack (Sustain) / Intelligence (Boiling Blood), Critical Rate, Critical Damage, Penetration Rate (Boiling Blood), Incantation Might
 
 Sanguine Fangs - (Strike) Deal 180% Physical Damage. Recover 25% Damage Dealt.
 
@@ -94,7 +94,7 @@ Spellblade - [Mana, Combo]
 
 SP Investment Recommendation - Attack, Intelligence, Critical Rate, Mana Regeneration Rate
 
-Mana Edge - (Strike) Deal 160% Physical Damage. Restore 20 additional Mana, which is affected by Mana Regeneration Rate.
+Mana Edge - (Strike) Deal 160% Physical Damage. Base Mana Gain increased to 20.
 
 Overclock - (Cantrip) Deal 200% Magic Damage. Consume 30% Mana to deal equivalent additional True Damage.
 
@@ -144,7 +144,7 @@ SP Investment Recommendation - Intelligence, Critical Rate, Mana Regeneration Ra
 
 Ace Up the Sleeve - (Strike) Deal 200% Physical Damage.
 
-All In - (Cantrip) Roll a 6-sided dice. Deal 50% Magic Damage multiplied by the dice roll. Mana gain is double the dice roll, which is still affected by Mana Regeneration Rate.
+All In - (Cantrip) Roll a 6-sided dice. Deal 50% Magic Damage multiplied by the dice roll. Base Mana gain is double the dice roll.
 
 Loaded Dice - (Ultimate) [Enhance] Roll a 6-sided dice. Gain Intelligence equal to the dice roll, and 10% Mana Regeneration Rate multiplied by the dice roll. Costs 110 Mana.
 
@@ -181,7 +181,8 @@ Bladesinger - [Combo, Sustain, Extra Action]
 
 SP Investment Recommendation - Attack, Critical Rate, Incantation Might, Mana Regeneration Rate
 
-Sword Formation - (Passive) Flying Swords 
+Sword Formation - (Passive) Flying Swords can absorb attacks, negating up to 30 Health worth of Damage before being destroyed.
 
 Sweeping Bladesong - (Strike) Deal 180% Physical Damage. Commands a Flying Sword to attack, dealing 60% Physical Damage, gaining +1% Incantation Might.
 
+Phalanx Command - (Cantrip) Create 2 Flying Swords. Gain +1% Damage Taken Reduction. Base Mana Gain increased to 20.
