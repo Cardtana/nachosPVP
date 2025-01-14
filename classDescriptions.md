@@ -6,7 +6,7 @@ Bloody Cleave - (Strike) Deal 180% Physical Damage. If under 50% Max Health, dea
 
 Primal Force - (Cantrip) Deal 200% Magic Damage.
 
-Rage Burst - (Ultimate) [Burst] Deal 330% Physical Damage. If under 50% Max Health, deal additional 20% Max Health as Physical Damage. Costs 100 Mana.
+Rage Burst - (Ultimate) [Burst] Deal 280% Physical Damage. If under 50% Max Health, deal additional 12.5% Max Health as Physical Damage. Costs 100 Mana.
 
 
 Paladin - [Sustain, Health]
@@ -61,11 +61,11 @@ Executioner - [Burst]
 
 SP Investment Recommendations - Attack, Critical Rate, Incantation Might
 
-Beheading - (Strike) Deal 140% Physical Damage. Deal additional 5% Target Current Health as True Damage. If the Target's Health is under 30% of their Max Health, deal additional 60% Physical Damage and 30% Target Max Health as Physical Health.
+Beheading - (Strike) Deal 140% Physical Damage. Deal additional 5% Target Current Health as True Damage. If the Target's Health is under 30% of their Max Health, deal additional 60% Physical Damage and 5% Target Max Health as Physical Damage.
 
 Hand of Justice - (Cantrip) Deal 200% Magic Damage.
 
-Death Sentence - (Ultimate) [Burst] Deal 300% Physical Damage. If Target's Health is under 50% of their Max Health, deal additional 10% Max Health as True Damage. Costs 130 Mana.
+Death Sentence - (Ultimate) [Burst] Deal 170% Physical Damage. If Target's Health is under 50% of their Max Health, deal additional 10% Max Health as True Damage. Costs 130 Mana.
 
 
 Vampire - [Sustain, Boiling Blood, Critical]
@@ -131,9 +131,9 @@ Puppeteer - [Combo, Extra Action]
 
 SP Investment Recommendation - Attack/Intelligence, Critical Rate, Incantation Might, Mana Regeneration Rate
 
-Weaving Blade - (Strike) Deal 130% Physical Damage. For each Puppet present, attack once, dealing 110% Physical Damage.
+Weaving Blade - (Strike) Deal 80% Physical Damage. For each Puppet present, attack once, dealing 130% Physical Damage.
 
-Dancing Strings - (Cantrip) Deal 130% Magic Damage. For each Puppet present, cast a cantrip once, dealing 110% Magic Damage.
+Dancing Strings - (Cantrip) Deal 80% Magic Damage. For each Puppet present, cast a cantrip once, dealing 130% Magic Damage.
 
 Masquerade of the Collective - (Ultimate) [Enhance] Gain 1 Puppet, +2 Attack and Intelligence. Costs 130 Mana.
 
@@ -175,3 +175,5 @@ Silent Takedown - (Strike) Deal 200% Physical Damage. Trigger 1 round of Poison.
 Honeyed Words - (Cantrip) Deal 200% Magic Damage. Inflict 1 round of Poison.
 
 Assasin's Mark - (Ultimate) [Enhance, Debuff] Gain +4 Wisdom. Inflict the Contaminated status and 5 rounds of Poison. Costs 100 Mana.
+
+Bladesinger - [Combo, 
