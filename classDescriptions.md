@@ -181,4 +181,7 @@ Bladesinger - [Combo, Sustain, Extra Action]
 
 SP Investment Recommendation - Attack, Critical Rate, Incantation Might, Mana Regeneration Rate
 
+Sword Formation - (Passive) Flying Swords 
+
+Sweeping Bladesong - (Strike) Deal 180% Physical Damage. Commands a Flying Sword to attack, dealing 60% Physical Damage, gaining +1% Incantation Might.
 
