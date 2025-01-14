@@ -19,6 +19,7 @@ def tinput(text):
         time.sleep(0.05)
     inp = input()
     return inp
+
 class Character:
     def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
         self.name = name
@@ -124,7 +125,7 @@ class Character:
 
     def poisoned(self,target):
         self.health -= target.wisdom*2.25
-        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " took " + Fore.GREEN + str(target.wisdom*2.25) + Style.RESET_ALL + " Poison damage!")
+        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " took " + Fore.GREEN + str(target.wisdom*1.5) + Style.RESET_ALL + " Poison damage!")
         self.poisonTurns -= 1
 
 class Barbarian(Character):
@@ -138,7 +139,7 @@ class Barbarian(Character):
         self.mana += 10 * self.manaRegen
         
         if hit > self.accuracy:
-            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Cleave on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
+            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Bloody Cleave on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
             tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " missed!")
         
         else:
@@ -146,12 +147,12 @@ class Barbarian(Character):
                 crit -= 30
                 if crit > self.cRate:
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Bloody Cleave on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                    target.takeDamage(self.attack * 3 * self.incMight - target.defence*(1-self.penRate),False)
+                    target.takeDamage(self.attack * 2.5 * self.incMight - target.defence*(1-self.penRate),False)
 
                 else:
                     tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Bloody Cleave on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                    target.takeDamage(self.attack * 3 * self.incMight * self.cDmg - target.defence*(1-self.penRate),True)
+                    target.takeDamage(self.attack * 2.5 * self.incMight * self.cDmg - target.defence*(1-self.penRate),True)
             else:
                 if crit > self.cRate:
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Bloody Cleave on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
@@ -189,12 +190,12 @@ class Barbarian(Character):
         if self.health <= self.maxHealth/2:
             tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
             tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " used Rage Burst on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-            target.takeDamage((self.attack * 3.3 + (self.maxHealth - self.health) / 3) * self.incMight * self.cDmg - target.defence*(1-self.penRate),True)
+            target.takeDamage((self.attack * 2.8 + (self.maxHealth - self.health) / 8) * self.incMight * self.cDmg - target.defence*(1-self.penRate),True)
 
         else:
             tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
             tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " used Rage Burst on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-            target.takeDamage((self.attack * 3.3) * self.incMight * self.cDmg - target.defence*(1-self.penRate),True)
+            target.takeDamage((self.attack * 2.8) * self.incMight * self.cDmg - target.defence*(1-self.penRate),True)
             self.health -= 40
             tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + str(round(self.health, 2)) + " health left!")
 
@@ -209,18 +210,18 @@ class Paladin(Character):
         self.mana += 10 * self.manaRegen
 
         if hit > self.accuracy:
-            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Smite " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
+            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Smite on" + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
             tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " missed!")
         
         else:
             if crit > self.cRate:
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Smite on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.attack * 2 * self.incMight - target.defence*(1-self.penRate) + self.maxHealth * 0.005, False)
+                target.takeDamage(self.attack * 1.7 * self.incMight - target.defence*(1-self.penRate) + self.maxHealth * 0.005, False)
 
             else:
                 tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Smite on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.attack * 2 * self.incMight * self.cDmg - target.defence*(1-self.penRate) + self.maxHealth * 0.005, True)
+                target.takeDamage(self.attack * 1.7 * self.incMight * self.cDmg - target.defence*(1-self.penRate) + self.maxHealth * 0.005, True)
         tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
     def cantrip(self, target):
         crit = random.randint(1, 100)
@@ -234,12 +235,12 @@ class Paladin(Character):
         else:
             if crit > self.cRate:
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " casts Guiding Bolt on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.intelligence * 2 * self.incMight - target.wisdom*(1-self.penRate) + self.maxHealth * 0.005, False)
+                target.takeDamage(self.intelligence * 1.7 * self.incMight - target.wisdom*(1-self.penRate) + self.maxHealth * 0.005, False)
         
             else:
                 tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " casts Guiding Bolt on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.intelligence * 2 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate) + self.maxHealth * 0.005, True)
+                target.takeDamage(self.intelligence * 1.7 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate) + self.maxHealth * 0.005, True)
         tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
 
     def takeDamage(self, damage, crit):
@@ -326,15 +327,15 @@ class SecretKeeper(Character):
     def ult(self, target):
         self.mana -= 120
         crit = random.randint(1, 100)
-        self.penRate += 0.5
+        self.penRate += 0.25
 
         if crit > self.cRate:
-            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " casts Voice in the Mind on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +50% Penetration Rate!")
+            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " casts Voice in the Mind on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +25% Penetration Rate!")
             target.takeDamage(self.intelligence * 2.5 * self.incMight - target.wisdom*(0.7-self.penRate), False)
         
         else:
             tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
-            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " casts Voice in the Mind on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +50% Penetration Rate!")
+            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " casts Voice in the Mind on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +25% Penetration Rate!")
             target.takeDamage(self.intelligence * 2.5 * self.incMight * self.cDmg - target.wisdom*(0.7-self.penRate), True)
 
 class Alchemist(Character):
@@ -435,12 +436,12 @@ class Ranger(Character):
             
             if crit > self.cRate:
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Steel Wind Strike on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +10% Critical Damage!")
-                target.takeDamage(self.attack * 2 * self.incMight - target.defence*(1-self.penRate), False)
+                target.takeDamage(self.attack * 1.8 * self.incMight - target.defence*(1-self.penRate), False)
             
             else:
                 tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Steel Wind Strike on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +10% Critical Damage!")
-                target.takeDamage(self.attack * 2 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
+                target.takeDamage(self.attack * 1.8 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
             tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
     
     def cantrip(self, target):
@@ -466,22 +467,22 @@ class Ranger(Character):
     def ult(self, target):
         self.mana -= 140
         crit = random.randint(1, 100)
-        self.cDmg += 0.5
-        self.cRate += 150
+        self.cDmg += 0.25
+        self.cRate += 5
         
         if crit > self.cRate:
-            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " used Fatal Flicker on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +15% Critical Rate and +50% Critical Damage!")
+            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " used Fatal Flicker on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +5% Critical Rate and +25% Critical Damage!")
             target.takeDamage(self.attack * 2 * self.incMight - target.defence*(1-self.penRate), False)
         
         else:
             tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
-            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " used Fatal Flicker on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +15% Critical Rate and +80% Critical Damage!")
+            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " used Fatal Flicker on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +5% Critical Rate and +25% Critical Damage!")
             target.takeDamage(self.attack * 2 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
 
 class Executioner(Character):
     def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
         super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
-        self.ultMana == 130
+        self.ultMana = 130
 
     def strike(self, target):
         crit = random.randint(1, 100)
@@ -496,22 +497,22 @@ class Executioner(Character):
             if target.health <= target.maxHealth*0.3:
                 if crit > self.cRate:
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Beheading on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                    target.takeDamage((self.attack * 2 + target.maxHealth * 0.3) * self.incMight - target.defence*(1-self.penRate), False)
+                    target.takeDamage((self.attack * 2 + target.maxHealth * 0.05) * self.incMight - target.defence*(1-self.penRate), False)
                 
                 else:
                     tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Beheading on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                    target.takeDamage((self.attack * 2 + target.maxHealth * 0.3) * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
+                    target.takeDamage((self.attack * 2 + target.maxHealth * 0.05) * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
             
             else:
                 if crit > self.cRate:
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Beheading on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                    target.takeDamage(self.attack * 1.4 * self.incMight - target.defence*(1-self.penRate) + target.health * 0.1, False)
+                    target.takeDamage(self.attack * 1.4 * self.incMight - target.defence*(1-self.penRate), False)
             
                 else:
                     tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Beheading on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                    target.takeDamage(self.attack * 1.4 * self.incMight * self.cDmg - target.defence*(1-self.penRate) + target.health * 0.1, True)
+                    target.takeDamage(self.attack * 1.4 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
         
         tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
 
@@ -542,26 +543,26 @@ class Executioner(Character):
         if target.health <= target.maxHealth*0.5:
             if crit > self.cRate:
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Death Sentence on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.attack * 3 * self.incMight + target.maxHealth * 0.1 - target.defence * (1-self.penRate), False)
+                target.takeDamage(self.attack * 1.7 * self.incMight + target.maxHealth * 0.1 - target.defence * (1-self.penRate), False)
             
             else:
                 tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Death Sentence on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.attack * 3 * self.incMight * self.cDmg + target.maxHealth * 0.1 - target.defence * (1-self.penRate), True)
+                target.takeDamage(self.attack * 1.7 * self.incMight * self.cDmg + target.maxHealth * 0.1 - target.defence * (1-self.penRate), True)
         else:
             if crit > self.cRate:
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Death Sentence on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.attack * 3 * self.incMight - target.defence*(1-self.penRate), False)
+                target.takeDamage(self.attack * 1.7 * self.incMight - target.defence*(1-self.penRate), False)
            
             else:
                 tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Death Sentence on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.attack * 3 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
+                target.takeDamage(self.attack * 1.7 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
 
 class Vampire(Character):
     def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
         super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
-        self.ultMana == 110
+        self.ultMana == 140
 
     def strike(self, target):
         crit = random.randint(1, 100)
@@ -614,7 +615,7 @@ class Vampire(Character):
         tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
 
     def ult(self, target):
-        self.mana -= 110
+        self.mana -= 140
         crit = random.randint(1, 100)
         
         if crit > self.cRate:
@@ -667,7 +668,7 @@ class FogWalker(Character):
         else:
             if crit > self.cRate:
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " casts Miasma on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", decreasing their accuracy by 1%!")
-                target.takeDamage(self.intelligence * 1.5 * self.incMight - target.wisdom*(1-self.penRate), False)
+                target.takeDamage(self.intelligence * 1.8 * self.incMight - target.wisdom*(1-self.penRate), False)
                 target.accuracy -= 1
 
             else:
@@ -685,7 +686,7 @@ class FogWalker(Character):
         if crit > self.cRate:
             tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " casts Smoke and Mirrors on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", decreasing their accuracy by 5%!")
             target.takeDamage(self.intelligence * 2.5 * self.incMight - target.wisdom*(1-self.penRate), False)
-            target.accuracy -= 1
+            target.accuracy -= 3
 
         else:
             tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
@@ -711,12 +712,12 @@ class Spellblade(Character):
         else:
             if crit > self.cRate:
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Mana Edge on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.attack * 2 * self.incMight - target.defence*(1-self.penRate), False)
+                target.takeDamage(self.attack * 1.6 * self.incMight - target.defence*(1-self.penRate), False)
 
             else:
                 tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Mana Edge on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.attack * 2 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
+                target.takeDamage(self.attack * 1.6 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
         tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
 
     def cantrip(self, target):
@@ -832,20 +833,21 @@ class Drunkard(Character):
             self.poisonTurns += 1
 
     def ult(self,target):
-        self.mana -= 140
+        self.mana -= 160
         self.potions += 2
         crit = random.randint(1, 100)
         
         if crit > self.cRate:
             tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Drunken Frenzy on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining 2 bottles of beer and consuming one of them!")
             self.potion()
-            target.takeDamage(self.attack * 3.4 * self.incMight - target.defence*(1-self.penRate), False)
+            target.takeDamage(self.attack * 2.6 * self.incMight - target.defence*(1-self.penRate), False)
 
         else:
             tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
             tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Drunken Frenzy on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining 2 bottles of beer and consuming one of them!")
             self.potion()
-            target.takeDamage(self.attack * 3.4 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
+            target.takeDamage(self.attack * 2.6 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
+
 class Acrobat(Character):
     def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
         super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
@@ -866,12 +868,12 @@ class Acrobat(Character):
         else:
             if crit > self.cRate:
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Pirouette on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining 1 stack of Swiftness!")
-                target.takeDamage(self.attack * self.incMight - target.defence*(1-self.penRate) + self.flatDmg, False)
+                target.takeDamage(self.attack * 1.6 * self.incMight - target.defence*(1-self.penRate) + self.flatDmg, False)
 
             else:
                 tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Pirouette on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining 1 stack of Swiftness!")
-                target.takeDamage(self.attack * self.incMight * self.cDmg - target.defence*(1-self.penRate) + self.flatDmg, True)
+                target.takeDamage(self.attack * 1.6 * self.incMight * self.cDmg - target.defence*(1-self.penRate) + self.flatDmg, True)
         tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
 
     def cantrip(self, target):
@@ -913,12 +915,12 @@ class Acrobat(Character):
             else:
                 if crit > self.cRate:
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " attacks " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                    target.takeDamage(self.attack * self.incMight - target.defence*(1-self.penRate) + self.flatDmg, False)
+                    target.takeDamage(self.attack * 1.3 * self.incMight - target.defence*(1-self.penRate) + self.flatDmg, False)
 
                 else:
                     tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " attacks " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                    target.takeDamage(self.attack * self.incMight * self.cDmg - target.defence*(1-self.penRate) + self.flatDmg, True)
+                    target.takeDamage(self.attack * 1.3 * self.incMight * self.cDmg - target.defence*(1-self.penRate) + self.flatDmg, True)
             self.flatDmg += 1
         self.swiftness = 0
 
@@ -939,12 +941,12 @@ class Puppeteer(Character):
         else:
             if crit > self.cRate:
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Weaving Blade on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.attack * 1.3 * self.incMight - target.defence*(1-self.penRate),False)
+                target.takeDamage(self.attack * 0.8 * self.incMight - target.defence*(1-self.penRate),False)
 
             else:
                 tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Weaving Blade on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.attack * 1.3 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
+                target.takeDamage(self.attack * 0.8 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
         tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
 
         for i in range(self.puppets):
@@ -958,12 +960,12 @@ class Puppeteer(Character):
             else:
                 if crit > self.cRate:
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + "'s puppet attacks " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                    target.takeDamage(self.attack * 1.1 * self.incMight - target.defence*(1-self.penRate), False)
+                    target.takeDamage(self.attack * 1.3 * self.incMight - target.defence*(1-self.penRate), False)
 
                 else:
                     tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + "'s puppet attacks " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                    target.takeDamage(self.attack * 1.1 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
+                    target.takeDamage(self.attack * 1.3 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
 
     def cantrip(self, target):
         crit = random.randint(1, 100)
@@ -977,12 +979,12 @@ class Puppeteer(Character):
         else:
             if crit > self.cRate:
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " casts Dancing Strings on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.intelligence * 1.3 * self.incMight - target.wisdom*(1-self.penRate), False)
+                target.takeDamage(self.intelligence * 0.8 * self.incMight - target.wisdom*(1-self.penRate), False)
 
             else:
                 tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " casts Dancing Strings on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                target.takeDamage(self.intelligence * 1.3 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate), True)
+                target.takeDamage(self.intelligence * 0.8 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate), True)
         tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
 
         for i in range(self.puppets):
@@ -996,12 +998,12 @@ class Puppeteer(Character):
             else:
                 if crit > self.cRate:
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + "'s puppet casts a cantrip on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                    target.takeDamage(self.intelligence * 1.1 * self.incMight - target.wisdom*(1-self.penRate), False)
+                    target.takeDamage(self.intelligence * 1.3 * self.incMight - target.wisdom*(1-self.penRate), False)
 
                 else:
                     tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                     tprint(Fore.YELLOW + self.name + Style.RESET_ALL + "'s puppet casts a cantrip on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
-                    target.takeDamage(self.intelligence * 1.1 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate), True)
+                    target.takeDamage(self.intelligence * 1.3 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate), True)
 
     def ult(self,target):
         self.mana -= 130
@@ -1058,6 +1060,7 @@ class Gambler(Character):
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " casts All In on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
                 target.takeDamage(self.intelligence * dice / 2 * self.incMight * self.cDmg - target.wisdom*(1-self.penRate), True)
         tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
+    
     def ult(self, target):
         dice = random.randint(1,6)
         self.mana -= 110
@@ -1150,9 +1153,10 @@ class Proxy(Character):
         self.mana -= 120
         self.tentacleDmg += 4
         tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " used Eldritch Ritual, gaining +4 Tentacle Damage and Commanding Tentacles to attack!")
-        for i in range(self.ritualProgress):
-            self.tentacle(target)
-        self.ritualProgress -= 3
+        if self.ritualProgress >= 3:
+            for i in range(self.ritualProgress):
+                self.tentacle(target)
+            self.ritualProgress -= 3
 
 class Agent(Character):
     def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
@@ -1177,9 +1181,8 @@ class Agent(Character):
                 tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
                 tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Silent Takedown on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", triggering 1 round of Poison!")
                 target.takeDamage(self.attack * 2 * self.incMight * self.cDmg - target.defence*(1-self.penRate),True)
-            if target.poisonTurns >= 1:
-                target.poisonTurns -= 1
-                target.poisoned(self)
+            target.poisonTurns -= 1
+            target.poisoned(self)
         tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
 
     def cantrip(self, target):
@@ -1210,6 +1213,123 @@ class Agent(Character):
         target.contaminated = True
         tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " used Assasin's Mark, gaining +4 Wisdom, inflicting the Contaminated status and applying 5 rounds of Poison!")
     
+class Bladesinger(Character):
+    def __init__(self, name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions):
+        super().__init__(name, health, attack, defence, intelligence, wisdom, cRate, cDmg, penRate, incMight, dmgReduction, manaRegen, accuracy, potions)
+        self.ultMana = 120
+        self.flyingSwords = 3
+        self.swordHealth = 30
+    
+    def takeDamage(self, damage, crit):
+        self.mana += 5 * self.manaRegen
+        if self.flyingSwords >= 1:
+            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + "'s Flying Sword sacrifices itself to reduce Damage Taken!")
+            self.swordHealth -= damage
+            if self.swordHealth <= 0:
+                damage = self.swordHealth * -1
+                if crit == True:
+                    if damage < 1:
+                        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has taken " + Fore.RED + "0" + Style.RESET_ALL + " damage!")
+                    else:
+                        self.health -= (damage*(1-self.dmgReduction))
+                        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has taken " + Fore.RED + str(round(damage*(1-self.dmgReduction), 2)) + Style.RESET_ALL + " damage!")
+                else:
+                    if damage < 1:
+                        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has taken 0 damage!")
+                    else:
+                        self.health -= (damage*(1-self.dmgReduction))
+                        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has taken " + str(round(damage*(1-self.dmgReduction), 2)) + " damage!")
+                self.flyingSwords -= 1
+                tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + str(self.flyingSwords) + " Flying Swords left!")
+                self.swordHealth = 20
+            else:
+                if crit == True:
+                    tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has taken " + Fore.RED + "0" + Style.RESET_ALL + " damage!")
+                else:
+                    tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has taken 0 damage!")
+        else:
+            if crit == True:
+                if damage < 1:
+                    self.health -= 1
+                    tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has taken " + Fore.RED + "1" + Style.RESET_ALL + " damage!")
+                else:
+                    self.health -= (damage*(1-self.dmgReduction))
+                    tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has taken " + Fore.RED + str(round(damage*(1-self.dmgReduction), 2)) + Style.RESET_ALL + " damage!")
+            else:
+                if damage < 1:
+                    self.health -= 1
+                    tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has taken 1 damage!")
+                else:
+                    self.health -= (damage*(1-self.dmgReduction))
+                    tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has taken " + str(round(damage*(1-self.dmgReduction), 2)) + " damage!")
+        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + str(round(self.health, 2)) + " health left!")
+        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
+
+    def strike(self, target):
+        crit = random.randint(1, 100)
+        hit = random.randint(1, 100)
+        self.mana += 10 * self.manaRegen
+        
+        if hit > self.accuracy:
+            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Sweeping Bladesong on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
+            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " missed!")
+
+        else:
+            if crit > self.cRate:
+                tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Sweeping Bladesong on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
+                target.takeDamage(self.attack * 1.8 * self.incMight - target.defence*(1-self.penRate),False)
+
+            else:
+                tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
+                tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Sweeping Bladesong on " + Fore.YELLOW + target.name + Style.RESET_ALL + "!")
+                target.takeDamage(self.attack * 1.8 * self.incMight * self.cDmg - target.defence*(1-self.penRate),True)
+        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
+
+        if self.flyingSwords >= 1:
+            crit = random.randint(1, 100)
+            hit = random.randint(1, 100)
+            
+            if hit > self.accuracy:
+                tprint(Fore.YELLOW + self.name + Style.RESET_ALL + "'s Flying Sword attacks " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +1% Incantation Might!")
+                tprint(Fore.YELLOW + self.name + Style.RESET_ALL + "'s Flying Sword missed!")
+            
+            else:
+                if crit > self.cRate:
+                    tprint(Fore.YELLOW + self.name + Style.RESET_ALL + "'s Flying Sword attacks " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +1% Incantation Might!")
+                    target.takeDamage(self.attack * 0.6 * self.incMight - target.defence*(1-self.penRate), False)
+
+                else:
+                    tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
+                    tprint(Fore.YELLOW + self.name + Style.RESET_ALL + "'s Flying Sword attacks " + Fore.YELLOW + target.name + Style.RESET_ALL + ", gaining +1% Incantation Might!")
+                    target.takeDamage(self.attack * 0.6 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
+                self.flyingSwords -= 1
+                self.incMight += 0.01
+                tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + str(self.flyingSwords) + " Flying Swords left!")
+
+    def cantrip(self, target):
+        self.mana += 20 * self.manaRegen
+        self.flyingSwords += 2
+        self.dmgReduction += 0.01
+    
+        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " casts Phalanx Command, creating 2 Flying Swords and gaining +1% Damage Taken Reduction!")
+        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + str(self.flyingSwords) + " Flying Swords left!")
+
+        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + Fore.BLUE + str(round(self.mana, 2)) + Style.RESET_ALL + " mana!")
+
+    def ult(self,target):
+        self.mana -= 120
+        self.flyingSwords += 5
+        crit = random.randint(1, 100)
+        
+        if crit > self.cRate:
+            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Lacerating Deluge on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", creating 5 Flying Swords!")
+            target.takeDamage(self.attack * self.flyingSwords * 0.3 * self.incMight - target.defence*(1-self.penRate), False)
+
+        else:
+            tprint(Fore.RED + "Critical hit!" + Style.RESET_ALL)
+            tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " uses Lacerating Deluge on " + Fore.YELLOW + target.name + Style.RESET_ALL + ", creating 5 Flying Swords!")
+            target.takeDamage(self.attack * self.flyingSwords * 0.3 * self.incMight * self.cDmg - target.defence*(1-self.penRate), True)
+        tprint(Fore.YELLOW + self.name + Style.RESET_ALL + " has " + str(self.flyingSwords) + " Flying Swords left!")
 #You have 25 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10, Critical Damage by 0.2, Incantation Might/Penetration/Damage Taken Reduction by 0.1.
 #Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10, Critical Damage is 2, Incantation Might is 1, Penetration Rate/Damage Taken Reduction is 0, Accuracy is 80
 #Max Attack/Defence/Intelligence/Wisdom is 20, Health is 2000, Critical Rate is 70, Critical Damage is 3, Incantation Might is 2, Penetration Rate is 1, Damage Taken Reduction is 0.5, Accuracy is 80
@@ -1229,7 +1349,8 @@ CHARACTER_CLASSES = {
     "puppeteer": Puppeteer,
     "gambler": Gambler,
     "proxy": Proxy,
-    "agent": Agent
+    "agent": Agent,
+    "bladesinger": Bladesinger
 }
 
 players = []
@@ -1246,12 +1367,12 @@ for i in range(2):
         class_name = input("Enter the player's class: ").strip().lower()
 
     SP = 30
-    print("You have 30 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10, Critical Damage by 0.2, Incantation Might/Penetration/Damage Taken Reduction by 0.1.")
-    print("Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10, Critical Damage is 2, Incantation Might is 1, Penetration Rate/Damage Taken Reduction is 0, Accuracy is 80")
-    print("Max Attack/Defence/Intelligence/Wisdom is 20, Health is 2000, Critical Rate is 70, Critical Damage is 3, Incantation Might is 2, Penetration Rate is 1, Damage Taken Reduction is 0.05, Accuracy is 80")
+    print("You have 30 skill points. Each skill point increases Attack/Defence/Intelligence/Wisdom by 1, Health by 100, Critical Rate by 10%, Critical Damage by 20%, Penetration Rate/Mana Regeneration Rate by 10%, Incantation Might/Damage Taken Reduction by 5%.")
+    print("Base Attack/Defence/Intelligence/Wisdom is 10, Health is 1000, Critical Rate is 10%, Critical Damage is 100%, Incantation Might/Mana Regeneration Rate is 100%, Penetration Rate/Damage Taken Reduction is 0%, Mana Regeneration Rate is 100%")
+    print("Max Attack/Defence/Intelligence/Wisdom is 20, Health is 1500, Critical Rate is 80%, Critical Damage is 200%, Incantation Might is 150%, Penetration Rate is 100%, Damage Taken Reduction is 25%, Mana Regeneration Rate is 200%")
 
     health = int(input("You have " + str(SP)+ " skill points. How many skill points do you want to invest in Health? "))
-    while health > 10 or health < 0 or health > SP:
+    while health > 5 or health < 0 or health > SP:
         health = int(input("Please input a valid number "))
     SP -= health
 
