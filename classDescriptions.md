@@ -177,7 +177,7 @@ Honeyed Words - (Cantrip) Deal 200% Magic Damage. Inflict 1 round of Poison.
 Assasin's Mark - (Ultimate) [Enhance, Debuff] Gain +4 Wisdom. Inflict the Contaminated status and 5 rounds of Poison. Costs 100 Mana.
 
 
-Bladesinger - [Combo, Sustain, Extra Action]
+Bladesinger - [Burst, Sustain, Extra Action]
 
 SP Investment Recommendation - Attack, Critical Rate, Incantation Might, Mana Regeneration Rate
 
