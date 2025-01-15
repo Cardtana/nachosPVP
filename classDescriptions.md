@@ -13,11 +13,11 @@ Paladin - [Sustain, Health]
 
 SP Investment Recommendations - Health, Damage Taken Reduction, Mana Regeneration Rate
 
-Blessed Armour - (Passive) Recover 0.5% Max Health when being attacked.
+Blessed Armour - (Passive) Recover 1% Max Health when being attacked.
 
-Smite - (Strike) Deal 170% Physical Damage. Deal additional 0.5% Max Health as True Damage.
+Smite - (Strike) Deal 170% Physical Damage. Deal additional 1% Max Health as True Damage.
 
-Guiding Bolt - (Cantrip) Deal 170% Magic Damage. Deal additional 0.5% Max Health as True Damage.
+Guiding Bolt - (Cantrip) Deal 170% Magic Damage. Deal additional 1% Max Health as True Damage.
 
 Radiant Decree - (Ultimate) [Heal, Enhance] Recover 25 Health, Gain +100 Max Health and +5% Damage Taken Reduction. Costs 110 Mana.
 
